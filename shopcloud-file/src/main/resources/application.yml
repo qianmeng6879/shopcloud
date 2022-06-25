@@ -1,0 +1,21 @@
+server:
+  port: 8800
+
+spring:
+  application:
+    name: fileservice.provider
+
+  datasource:
+    username: root
+    password: MIXINmysql6879
+    url: jdbc:mysql://localhost:3306/shopcloud_fileservice
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  servlet:
+    multipart:
+      max-file-size: 6MB
+
+mxzero:
+  file:
+#    path: E:\\Pictures\\image-upload\\
+    path: /usr/file/

@@ -1,0 +1,204 @@
+buildscript {
+    ext{
+        springBootVersion = '2.6.8'
+        springCloudVersion = '2021.0.3'
+        springCloudAlibabaVersion = '2021.0.1.0'
+    }
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/release" }
+        maven { url 'https://repo.spring.io/plugins-snapshot' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+allprojects {
+    group project_group
+    version project_version
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    sourceCompatibility = project_jdk
+    targetCompatibility = project_jdk
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor('org.projectlombok:lombok:1.18.22')
+        implementation 'org.hibernate.validator:hibernate-validator:6.2.3.Final'
+        implementation 'mysql:mysql-connector-java:8.0.27'
+
+    }
+
+    dependencyManagement {
+        imports{
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        }
+    }
+}
+
+project('nacos-exam'){
+    dependencies {
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+    }
+}
+
+project('mxzero-starter-jwt'){
+    dependencies {
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        implementation 'com.alibaba:fastjson:1.2.79'
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'commons-codec:commons-codec:1.15'
+        implementation 'javax.xml.bind:jaxb-api:2.3.0'
+        implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
+        implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
+    }
+}
+
+project('common-api'){
+    dependencies {
+        implementation project(':mxzero-starter-jwt')
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    }
+}
+
+project('shopcloud-user'){
+    dependencies {
+        implementation project(':common-api')
+        implementation project(':mxzero-starter-jwt')
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'com.alibaba:fastjson:1.2.79'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+        implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'de.codecentric:spring-boot-admin-starter-client:2.6.7'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    }
+}
+
+project('shopcloud-order'){
+    dependencies {
+        implementation project(':common-api')
+        implementation project(':mxzero-starter-jwt')
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'de.codecentric:spring-boot-admin-starter-client:2.6.7'
+        implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    }
+}
+
+project('shopcloud-product'){
+    dependencies {
+        implementation project(':common-api')
+        implementation project(':mxzero-starter-jwt')
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+        implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'de.codecentric:spring-boot-admin-starter-client:2.6.7'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    }
+}
+
+project('shopcloud-file'){
+    dependencies {
+        implementation project(':common-api')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    }
+}
+
+project('shopcloud-gateway'){
+    dependencies {
+        implementation project(':mxzero-starter-jwt')
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    }
+}
+
+project('sentinel-token-server'){
+    dependencies{
+        implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel') {
+            exclude group: 'com.alibaba.csp', module: 'sentinel-cluster-client-default'
+        }
+    }
+}
+
+project('microservice-admin'){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'de.codecentric:spring-boot-admin-starter-server:2.6.7'
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'){
+            exclude group:'com.alibaba.nacos', module: 'nacos-client'
+        }
+        implementation 'com.alibaba.nacos:nacos-client:2.1.0'
+    }
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/common-api" />
+            <option value="$PROJECT_DIR$/microservice-admin" />
+            <option value="$PROJECT_DIR$/mxzero-starter-jwt" />
+            <option value="$PROJECT_DIR$/nacos-exam" />
+            <option value="$PROJECT_DIR$/sentinel-token-server" />
+            <option value="$PROJECT_DIR$/shopcloud-file" />
+            <option value="$PROJECT_DIR$/shopcloud-gateway" />
+            <option value="$PROJECT_DIR$/shopcloud-order" />
+            <option value="$PROJECT_DIR$/shopcloud-product" />
+            <option value="$PROJECT_DIR$/shopcloud-user" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

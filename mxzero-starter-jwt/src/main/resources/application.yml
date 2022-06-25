@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: jwt
+
+mxzero:
+  config:
+    jwt:
+      sign: mxzero
+      site: mxzero.top
+      issuer: zero
+      secret: httpmxzerotop
+      expire: 1800

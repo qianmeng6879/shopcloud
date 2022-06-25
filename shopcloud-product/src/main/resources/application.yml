@@ -1,0 +1,64 @@
+server:
+  port: 8400
+
+spring:
+  application:
+    name: productservice.provider
+  datasource:
+    username: root
+    password: mysqladmin
+    url: jdbc:mysql://127.0.0.1:3306/shopcloud_productservice
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: GMT+8
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+  cloud:
+    nacos:
+      discovery:
+        service: ${spring.application.name}
+        server-addr: nacos-server
+        namespace: cf9582db-449f-405f-9e30-152b6f26e895
+        group: SHOPCLOUD_GROUP
+        cluster-name: UserServiceCluster
+        metadata:
+          version: 1.0.0
+          url: www.mxzero.top
+          author: zero
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: sentinel-server:8080
+        clientIp: 192.168.1.200
+      log:
+        dir: E:\\message\\sentinel\\
+      block-page: /errors/block_handler
+  boot:
+    admin:
+      client:
+        username: zero
+        password: hello
+        url: http://127.0.0.1:8000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /actuator
+
+
+mxzero:
+  config:
+    jwt:
+      sign: mxzero
+      site: mxzero.top
+      issuer: zero
+      secret: httpmxzerotop
+      expire: 3600

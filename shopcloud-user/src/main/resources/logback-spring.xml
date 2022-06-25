@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+    <!-- 定义控制台输出匹配格式 -->
+    <substitutionProperty name="logging.pattern.console"
+                          value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{requestId}]) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%ewtpc}"/>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wtpc" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="ewtpc" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">   <!-- 控制台输出 -->
+        <layout class="ch.qos.logback.classic.PatternLayout"> <!-- 使用layout节点 -->
+            <pattern>${logging.pattern.console}</pattern> <!-- 格式引用 -->
+        </layout>
+    </appender>
+
+    <root level="INFO"> <!-- 全局日志级别 -->
+        <appender-ref ref="console"/>
+    </root>
+
+    <logger name="top.mxzero.mapper" level="DEBUG"/>
+</configuration>

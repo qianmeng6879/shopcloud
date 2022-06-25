@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group project_group
+version project_version
+
+jar { enabled = true }
+bootJar { enabled = false }
+javadoc { enabled = false }
+
+gradle.taskGraph.whenReady {
+    tasks.forEach { task ->
+        {
+            if (task.name.contains('test')) {
+                task.enabled = false
+            }
+        }
+    }
+}

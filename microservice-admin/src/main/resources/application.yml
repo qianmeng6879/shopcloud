@@ -1,0 +1,24 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: microservice-admin
+  cloud:
+    nacos:
+      discovery:
+        service: ${spring.application.name}
+        server-addr: nacos-server
+        namespace: cf9582db-449f-405f-9e30-152b6f26e895
+        group: SHOPCLOUD_GROUP
+        register-enabled: false
+  security:
+    user:
+      name: zero
+      password: hello
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /actuator

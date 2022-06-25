@@ -1,0 +1,12 @@
+rootProject.name = 'shopcloud'
+include 'common-api'
+include 'mxzero-starter-jwt'
+include 'shopcloud-user'
+include 'shopcloud-order'
+include 'nacos-exam'
+include 'sentinel-token-server'
+include 'microservice-admin'
+include 'shopcloud-product'
+include 'shopcloud-gateway'
+include 'shopcloud-file'
+

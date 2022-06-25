@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: cf9582db-449f-405f-9e30-152b6f26e895
+        server-addr: nacos-server:8848
+        group: SHOPCLOUD_GROUP
+        cluster-name: ProductServiceCluster
